@@ -1,0 +1,9 @@
+{
+    "name": "alihassan/shophub",
+    "autoload": {
+        "psr-4": {
+            "Alihassan\\Shophub\\": "src/"
+        }
+    },
+    "require": {}
+}
