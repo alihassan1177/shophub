@@ -12,3 +12,8 @@ License URI: LICENSE
 Text Domain: shophub
 Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
 */
+
+
+.post-thumbnail img {
+    width: 100%;
+}

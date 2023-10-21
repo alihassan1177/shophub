@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Template part for displaying posts
  *
@@ -10,15 +9,20 @@
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<div>
+<article class="card" id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+	<div class="card-img-top">
 		<?php shophub_post_thumbnail(); ?>
-	</div>
-	<header>
+	</div>	
+	<header class="card-header">
 		<?php
-		the_title('<h1 class="entry-title">', '</h1>');
-		if ('post' === get_post_type()) :
-		?>
+		if ( is_singular() ) :
+			the_title( '<h1 class="entry-title">', '</h1>' );
+		else :
+			the_title( '<h2><a class="text-decoration-none" href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );
+		endif;
+
+		if ( 'post' === get_post_type() ) :
+			?>
 			<div class="entry-meta">
 				<?php
 				shophub_posted_on();
@@ -28,33 +32,33 @@
 		<?php endif; ?>
 	</header><!-- .entry-header -->
 
-	<div>
+	<div class="card-body">
 		<?php
 		the_content(
 			sprintf(
 				wp_kses(
 					/* translators: %s: Name of current post. Only visible to screen readers */
-					__('Continue reading<span class="screen-reader-text"> "%s"</span>', 'shophub'),
+					__( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'shophub' ),
 					array(
 						'span' => array(
 							'class' => array(),
 						),
 					)
 				),
-				wp_kses_post(get_the_title())
+				wp_kses_post( get_the_title() )
 			)
 		);
 
 		wp_link_pages(
 			array(
-				'before' => '<div class="page-links">' . esc_html__('Pages:', 'shophub'),
+				'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'shophub' ),
 				'after'  => '</div>',
 			)
 		);
 		?>
 	</div><!-- .entry-content -->
 
-	<footer>
+	<footer class="card-footer">
 		<?php shophub_entry_footer(); ?>
 	</footer><!-- .entry-footer -->
 </article><!-- #post-<?php the_ID(); ?> -->
