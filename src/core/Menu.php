@@ -27,9 +27,21 @@ class Menu
 
     public function getMenuId($location){
         $locations = get_nav_menu_locations();
-        return $locations[$location];       
+        return $locations[$location] ?? "";       
     }
 
     public function getChildMenus($menu, $parentMenuItemId){
+        $childMenuItems = [];
+
+        if (!empty($menu) && is_array($menu)) {
+            foreach ($menu as $menuItem) {
+                if (intval($menuItem->menu_item_parent) === $parentMenuItemId) {
+                    $childMenuItems[]  = $menuItem;
+                }    
+            }
+        }
+
+        return $childMenuItems;
+
     }
 }

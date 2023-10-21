@@ -7,7 +7,6 @@ $menu_id = $menu_class->getMenuId("shophub-header-menu");
 
 $header_menus = wp_get_nav_menu_items($menu_id);
 
-
 ?>
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -24,7 +23,7 @@ $header_menus = wp_get_nav_menu_items($menu_id);
             <?php if (!empty($header_menus) && is_array($header_menus)) : ?>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <?php foreach ($header_menus as $menu_item) :
-                        if ($menu_item->menu_item_parent) :
+                        if (!$menu_item->menu_item_parent) :
 
                             $child_menus = $menu_class->getChildMenus($header_menus, $menu_item->ID);
                             $has_child_menus = !empty($child_menus) && is_array($child_menus);
@@ -36,17 +35,19 @@ $header_menus = wp_get_nav_menu_items($menu_id);
                                         <?= esc_html($menu_item->title) ?>
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Action</a></li>
+                                        <?php foreach ($child_menus as $child_menu_item) : ?>
+                                            <li><a class="dropdown-item" href="<?= esc_url($child_menu_item->url) ?>"><?= $child_menu_item->title ?></a></li>
+                                        <?php endforeach; ?>
                                     </ul>
+                                </li>
+                            <?php else : ?>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?= esc_url($menu_item->url) ?>"><?= esc_html($menu_item->title) ?></a>
                                 </li>
                             <?php
                             endif;
                             ?>
-                        <?php else : ?>
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="<?= esc_url($menu_item->url) ?>"><?= esc_html($menu_item->title) ?></a>
-                            </li>
                         <?php
                         endif; ?>
                     <?php endforeach; ?>
