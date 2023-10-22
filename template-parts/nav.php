@@ -9,10 +9,12 @@ $header_menus = wp_get_nav_menu_items($menu_id);
 
 ?>
 
-<nav class="navbar navbar-expand-lg <?php if(!is_front_page()){ echo "mb-4"; } ?>">
+<nav class="navbar navbar-expand-lg <?= !is_front_page() ? "mb-4" : ""  ?>">
     <div class="container-fluid">
 
-        <a class="navbar-brand" href="<?= esc_url(get_home_url()) ?>">Navbar</a>
+        <a class="navbar-brand" href="<?= esc_url(get_home_url()) ?>">  
+        <?php the_custom_logo() ?>
+        </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

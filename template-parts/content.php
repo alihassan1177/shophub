@@ -12,20 +12,12 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<div>
-		<?php shophub_post_thumbnail(); ?>
+		<?php the_shophub_get_post_thumbnail(get_the_ID()) ?>
 	</div>
 	<header>
 		<?php
 		the_title('<h1 class="entry-title">', '</h1>');
-		if ('post' === get_post_type()) :
 		?>
-			<div class="entry-meta">
-				<?php
-				shophub_posted_on();
-				shophub_posted_by();
-				?>
-			</div><!-- .entry-meta -->
-		<?php endif; ?>
 	</header><!-- .entry-header -->
 
 	<div>
@@ -54,7 +46,4 @@
 		?>
 	</div><!-- .entry-content -->
 
-	<footer>
-		<?php shophub_entry_footer(); ?>
-	</footer><!-- .entry-footer -->
 </article><!-- #post-<?php the_ID(); ?> -->

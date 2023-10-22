@@ -14,6 +14,11 @@ Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-com
 */
 
 
-.post-thumbnail img {
+.post-card-image{
     width: 100%;
+}
+
+.custom-logo{
+    max-width: 120px;
+    height: auto;
 }
