@@ -10,23 +10,23 @@
 
 ?>
 
-<article class="card" id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<div class="card-img-top">
+<div class="single-blog-area-style-one" id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+	<a href="blog-details.html" class="thumbnail">
 		<?php the_shophub_get_post_thumbnail(get_the_ID()) ?>
+	</a>
+	<div class="inner-content-wrapper">
+		<a href="blog-details.html">
+			<h6 class="title">
+				<?php
+				the_title('<a class="text-decoration-none" href="' . esc_url(get_permalink()) . '" >', '</a>');
+				?>
+			</h6>
+		</a>
+		<div class="bottom-area">
+			<span class="admin">Amir Nisi</span>
+			<span class="date">• 25 October, 2023</span>
+		</div>
 	</div>
-	<header class="card-header">
-
-		<?php
-		the_title('<h2><a class="text-decoration-none" href="' . esc_url(get_permalink()) . '" rel="bookmark">', '</a></h2>');
-		?>
-
-	</header><!-- .entry-header -->
-
-	<div class="card-body">
-		<?php
-		the_excerpt();
-		?>
-	</div><!-- .entry-content -->
+</div>
 
 
-</article><!-- #post-<?php the_ID(); ?> -->
