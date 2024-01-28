@@ -24999,3 +24999,18 @@ form i {
   margin-bottom: 20px;
 }
 /*# sourceMappingURL=../maps/style.css.map */
+
+.mega-menu {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  background-color: white;
+  visibility: visible;
+  opacity: 1;
+}
+
+.has-mega-menu:hover .mega-menu{
+  opacity: 1;
+  visibility: visible;
+} 
+

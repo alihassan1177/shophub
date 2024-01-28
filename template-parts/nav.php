@@ -8,6 +8,12 @@ $menu_id = $menu_class->getMenuId("shophub-header-menu");
 $header_menus = wp_get_nav_menu_items($menu_id);
 $menus = $menu_class->normalizeMenus($header_menus);
 
+$categories = get_terms(['hide_empty' => true]);
+
+echo "<pre>";
+print_r($categories);
+exit;
+
 ?>
 
 <!-- header area start -->
@@ -24,16 +30,25 @@ $menus = $menu_class->normalizeMenus($header_menus);
                     <nav class="main-nav-area">
                         <ul class="list-unstyled fluxi-desktop-menu">
                             <?php foreach ($menus as $menu) : ?>
-                                <li class="menu-item <?= count($menu->childs) > 0 ? "fluxi-has-dropdown" : "" ?>">
-                                    <a href="<?= $menu->url ?> " class="fluxi-dropdown-main-element"><?= $menu->title ?></a>
-                                    <?php if (count($menu->childs) > 0) : ?>
-                                        <ul class="fluxi-submenu list-unstyled menu-home">
-                                            <?php foreach ($menu->childs as $child_menu) :  ?>
-                                                <li class="nav-item"><a class="nav-link page" href="<?= $child_menu->url ?>"><?= $child_menu->title ?></a></li>
-                                            <?php endforeach; ?>
-                                        </ul>
-                                    <?php endif; ?>
-                                </li>
+                                <?php if (strtolower($menu->title) != "courses") : ?>
+                                    <li class="menu-item <?= count($menu->childs) > 0 ? "fluxi-has-dropdown" : "" ?>">
+                                        <a href="<?= $menu->url ?> " class="fluxi-dropdown-main-element"><?= $menu->title ?></a>
+                                        <?php if (count($menu->childs) > 0) : ?>
+                                            <ul class="fluxi-submenu list-unstyled menu-home">
+                                                <?php foreach ($menu->childs as $child_menu) :  ?>
+                                                    <li class="nav-item"><a class="nav-link page" href="<?= $child_menu->url ?>"><?= $child_menu->title ?></a></li>
+                                                <?php endforeach; ?>
+                                            </ul>
+                                        <?php endif; ?>
+                                    </li>
+                                <?php else : ?>
+                                    <li class="menu-item has-mega-menu">
+                                        <a class="fluxi-dropdown-main-element" href="<?= $menu->url ?>"><?= $menu->title ?></a>
+                                        <div class="mega-menu">
+                                            asd
+                                        </div>
+                                    </li>
+                                <?php endif; ?>
                             <?php endforeach; ?>
 
                         </ul>
