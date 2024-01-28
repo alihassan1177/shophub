@@ -6,6 +6,7 @@ $menu_class = Menu::getInstance();
 $menu_id = $menu_class->getMenuId("shophub-header-menu");
 
 $header_menus = wp_get_nav_menu_items($menu_id);
+$menus = $menu_class->normalizeMenus($header_menus);
 
 ?>
 
@@ -22,76 +23,19 @@ $header_menus = wp_get_nav_menu_items($menu_id);
                     </div>
                     <nav class="main-nav-area">
                         <ul class="list-unstyled fluxi-desktop-menu">
-                            <li class="menu-item fluxi-has-dropdown">
-                                <a href="#" class="fluxi-dropdown-main-element">Home</a>
-                                <!-- Start Dropdown Menu -->
-                                <ul class="fluxi-submenu list-unstyled menu-home">
-                                    <li class="nav-item"><a class="nav-link page" href="index.html">SEO Marketing</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="index-two.html">Digital Marketing</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="index-three.html">Digital Agency</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="index-four.html">Startup Agency</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="index-five.html">Advertising agency</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="index-six.html">Web Design Agency</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="index-seven.html">Social Media agency</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="index-eight.html">SEO Agency</a></li>
-                                </ul>
-                                <!-- End Dropdown Menu -->
-                            </li>
-                            <li class="menu-item fluxi-has-dropdown">
-                                <a href="#" class="fluxi-dropdown-main-element">Pages</a>
-                                <!-- Start Dropdown Menu -->
-                                <ul class="fluxi-submenu list-unstyled menu-home">
-                                    <li class="nav-item"><a class="nav-link page" href="about.html">About</a></li>
-                                    <li class="nav-item"><a class="nav-link page" href="team.html">Our Team</a></li>
-                                    <li class="nav-item"><a class="nav-link page" href="faq.html">FAQ's</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="book-a-demo.html">Book a Demo</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="free-audit.html">Free Audit</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="pricing.html">Pricing Plans</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="404.html">404 Page</a></li>
-                                </ul>
-                                <!-- End Dropdown Menu -->
-                            </li>
-                            <li class="menu-item fluxi-has-dropdown">
-                                <a href="#" class="fluxi-dropdown-main-element">Services</a>
-                                <!-- Start Dropdown Menu -->
-                                <ul class="fluxi-submenu list-unstyled menu-home">
-                                    <li class="nav-item"><a class="nav-link page" href="service.html">Service</a></li>
-                                    <li class="nav-item sub-dropdown">
-                                        <a href="#" class="nav-link sub-menu-link">Service Details</a>
-                                        <ul class="fluxi-submenu third-lvl base">
-                                            <li><a class="mobile-menu-link" href="service-single.html">Paid Search Marketing</a></li>
-                                            <li><a class="mobile-menu-link" href="email-marketing.html">Email Marketing</a></li>
-                                            <li><a class="mobile-menu-link" href="social-media-marketing.html">Social Media Marketing</a></li>
-                                            <li><a class="mobile-menu-link" href="influencer-marketing.html">Influencer Marketing</a></li>
+                            <?php foreach ($menus as $menu) : ?>
+                                <li class="menu-item <?= count($menu->childs) > 0 ? "fluxi-has-dropdown" : "" ?>">
+                                    <a href="<?= $menu->url ?> " class="fluxi-dropdown-main-element"><?= $menu->title ?></a>
+                                    <?php if (count($menu->childs) > 0) : ?>
+                                        <ul class="fluxi-submenu list-unstyled menu-home">
+                                            <?php foreach ($menu->childs as $child_menu) :  ?>
+                                                <li class="nav-item"><a class="nav-link page" href="<?= $child_menu->url ?>"><?= $child_menu->title ?></a></li>
+                                            <?php endforeach; ?>
                                         </ul>
-                                    </li>
-                                </ul>
-                                <!-- End Dropdown Menu -->
-                            </li>
-                            <li class="menu-item fluxi-has-dropdown">
-                                <a href="#" class="fluxi-dropdown-main-element">Work</a>
-                                <!-- Start Dropdown Menu -->
-                                <ul class="fluxi-submenu list-unstyled menu-home">
-                                    <li class="nav-item"><a class="nav-link page" href="case-studies.html">Case Studies</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="single-case-studies.html">Case Studies Details</a></li>
-                                </ul>
-                                <!-- End Dropdown Menu -->
-                            </li>
-                            <li class="menu-item fluxi-has-dropdown">
-                                <a href="#" class="fluxi-dropdown-main-element">Blog</a>
-                                <!-- Start Dropdown Menu -->
-                                <ul class="fluxi-submenu list-unstyled menu-home">
-                                    <li class="nav-item"><a class="nav-link page" href="blog.html">Blog</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="blog-left-sidebar.html">Blog Left Sidebar</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="blog-grid.html">Blog Grid</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="blog-grid-2.html">Blog Grid Right Sidebar</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="blog-grid-3.html">Blog Grid Left Sidebar</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="blog-details.html">Blog Details</a></li>
-                                </ul>
-                                <!-- End Dropdown Menu -->
-                            </li>
+                                    <?php endif; ?>
+                                </li>
+                            <?php endforeach; ?>
 
-                            <li class="menu-item"><a class="main-element fluxi-dropdown-main-element" href="contact.html">Contact</a></li>
                         </ul>
                     </nav>
                     <div class="button-area-start">
@@ -121,67 +65,18 @@ $header_menus = wp_get_nav_menu_items($menu_id);
     <div class="mobile-menu-main">
         <nav class="nav-main mainmenu-nav mt--30">
             <ul class="mainmenu metismenu" id="mobile-menu-active">
-                <li class="has-droupdown">
-                    <a href="#" class="main">Home</a>
-                    <ul class="submenu mm-collapse">
-                        <li><a class="mobile-menu-link" href="index.html">SEO Marketing</a></li>
-                        <li><a class="mobile-menu-link" href="index-two.html">Digital Marketing</a></li>
-                        <li><a class="mobile-menu-link" href="index-three.html">Digital Agency</a></li>
-                        <li><a class="mobile-menu-link" href="index-four.html">Startup Agency</a></li>
-                        <li><a class="mobile-menu-link" href="index-five.html">Advertising Agency</a></li>
-                        <li><a class="mobile-menu-link" href="index-six.html">Web Design Agency</a></li>
-                        <li><a class="mobile-menu-link" href="index-seven.html">Social Media Agency</a></li>
-                        <li><a class="mobile-menu-link" href="index-eight.html">SEO Agency</a></li>
-                    </ul>
-                </li>
-                <li class="has-droupdown">
-                    <a href="#" class="main">Pages</a>
-                    <ul class="submenu mm-collapse">
-                        <li><a class="mobile-menu-link" href="about.html">About</a></li>
-                        <li><a class="mobile-menu-link" href="team.html">Our Team</a></li>
-                        <li><a class="mobile-menu-link" href="faq.html">FAQ's</a></li>
-                        <li><a class="mobile-menu-link" href="book-a-demo.html">Book a Demo</a></li>
-                        <li><a class="mobile-menu-link" href="free-audit.html">Free Audit</a></li>
-                        <li><a class="mobile-menu-link" href="pricing.html">Pricing Plans</a></li>
-                        <li><a class="mobile-menu-link" href="404.html">404 Page</a></li>
-                    </ul>
-                </li>
-                <li class="has-droupdown">
-                    <a href="#" class="main">Services</a>
-                    <ul class="submenu mm-collapse">
-                        <li><a class="mobile-menu-link" href="service.html">Services</a></li>
-                        <li class="has-droupdown third-lvl">
-                            <a class="main" href="#">Service Details</a>
-                            <ul class="submenu-third-lvl mm-collapse">
-                                <li><a href="service-details.html"></a>Paid Search Marketing</li>
-                                <li><a href="email-marketing.html"></a>Email Marketing</li>
-                                <li><a href="social-media-marketing.html"></a>Social Media Marketing</li>
-                                <li><a href="influencer-marketing.html"></a>Influencer Marketing</li>
+                <?php foreach ($menus as $menu) : ?>
+                    <li class="<?= count($menu->childs) > 0 ? 'has-droupdown' : '' ?>">
+                        <a href="<?= $menu->url ?>" class="main"><?= $menu->title ?></a>
+                        <?php if (count($menu->childs) > 0) : ?>
+                            <ul class="submenu mm-collapse">
+                                <?php foreach ($menu->childs as $child_menu) : ?>
+                                    <li><a class="mobile-menu-link" href="<?= $child_menu->url ?>"><?= $child_menu->title ?></a></li>
+                                <?php endforeach; ?>
                             </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li class="has-droupdown">
-                    <a href="#" class="main">Work</a>
-                    <ul class="submenu mm-collapse">
-                        <li><a class="mobile-menu-link" href="case-studies.html">Case Studies</a></li>
-                        <li><a class="mobile-menu-link" href="single-case-studies.html">Case Studies Details</a></li>
-                    </ul>
-                </li>
-                <li class="has-droupdown">
-                    <a href="#" class="main">Blog</a>
-                    <ul class="submenu mm-collapse">
-                        <li><a class="mobile-menu-link" href="blog.html">Blog</a></li>
-                        <li><a class="mobile-menu-link" href="blog-left-sidebar.html">Blog Left Sidebar</a></li>
-                        <li><a class="mobile-menu-link" href="blog-grid.html">Blog Grid</a></li>
-                        <li><a class="mobile-menu-link" href="blog-grid-2.html">Blog Grid Right Sidebar</a></li>
-                        <li><a class="mobile-menu-link" href="blog-grid-3.html">Blog Grid Left Sidebar</a></li>
-                        <li><a class="mobile-menu-link" href="blog-details.html">Blog Details</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="contact.html" class="main">Contact Us</a>
-                </li>
+                        <?php endif; ?>
+                    </li>
+                <?php endforeach; ?>
             </ul>
         </nav>
 
@@ -195,4 +90,3 @@ $header_menus = wp_get_nav_menu_items($menu_id);
     <!-- mobile menu area end -->
 </div>
 <!-- side abr area end -->
-

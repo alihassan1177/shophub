@@ -11,11 +11,11 @@
 ?>
 
 <div class="single-blog-area-style-one" id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<a href="blog-details.html" class="thumbnail">
+	<a href="<?= get_permalink() ?>" class="thumbnail">
 		<?php the_shophub_get_post_thumbnail(get_the_ID()) ?>
 	</a>
 	<div class="inner-content-wrapper">
-		<a href="blog-details.html">
+		<a href="<?= get_permalink() ?>">
 			<h6 class="title">
 				<?php
 				the_title('<a class="text-decoration-none" href="' . esc_url(get_permalink()) . '" >', '</a>');
